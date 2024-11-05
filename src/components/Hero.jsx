@@ -56,7 +56,7 @@ export default function Hero() {
         />
 
         <motion.div
-          className="absolute border-solid border-yellow-green  border-[5px] border-t-0 border-r-0 pt-3 pl-3"
+          className="absolute border-solid border-yellow-green border-[5px] border-t-0 border-r-0 pt-3 pl-3"
           style={{
             transform: 'translateX(-50%) rotate(-45deg)',
             left: '50%',
