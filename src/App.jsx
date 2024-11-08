@@ -1,4 +1,6 @@
 import { RouterProvider, createBrowserRouter } from 'react-router-dom';
+import { useEffect } from 'react';
+
 import RootLayout from './components/RootLayout';
 import HomePage from './pages/HomePage';
 import CharactersPage from './pages/CharactersPage';
@@ -19,6 +21,10 @@ const router = createBrowserRouter([
 ]);
 
 function App() {
+  useEffect(() => {
+    document.body.style.overscrollBehavior = 'none';
+  }, []);
+
   return <RouterProvider router={router} />;
 }
 
