@@ -1,5 +1,6 @@
 import { RouterProvider, createBrowserRouter } from 'react-router-dom';
 import { useEffect } from 'react';
+import { QueryClient, QueryClientProvider } from 'react-query';
 
 import RootLayout from './components/RootLayout';
 import HomePage from './pages/HomePage';
@@ -20,12 +21,18 @@ const router = createBrowserRouter([
   },
 ]);
 
+const queryClient = new QueryClient();
+
 function App() {
   useEffect(() => {
     document.body.style.overscrollBehavior = 'none';
   }, []);
 
-  return <RouterProvider router={router} />;
+  return (
+    <QueryClientProvider client={queryClient}>
+      <RouterProvider router={router} />
+    </QueryClientProvider>
+  );
 }
 
 export default App;

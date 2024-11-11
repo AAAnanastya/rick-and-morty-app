@@ -1,64 +1,82 @@
-import { useState, useEffect, useRef } from 'react';
+import { useState, useEffect } from 'react';
+import { useQuery } from 'react-query';
 
 import SearchBar from '../components/SearchBar';
 import Background from '../assets/bg-cosmos.jpg';
 import ListItem from '../components/ListItem';
+import SortConditionItem from '../components/SortConditionItem';
 
 export default function CharactersPage() {
   const [characters, setCharacters] = useState([]);
-  const [page, setPage] = useState(1);
-  const [loading, setLoading] = useState(false);
-  const pagesFetched = useRef(new Set());
+  const [isSearching, setIsSearching] = useState(false);
+  const [filteredCharacters, setFilteredCharacters] = useState([]);
 
-  useEffect(() => {
-    if (pagesFetched.current.has(page)) return;
+  const { data, isLoading, isError, error, refetch } = useQuery(
+    'characterData',
+    async () => {
+      let allResults = [];
+      let url = `https://rickandmortyapi.com/api/character`;
 
-    const fetchCharacters = async () => {
-      setLoading(true);
-      pagesFetched.current.add(page);
-
-      try {
-        const res = await fetch(`https://rickandmortyapi.com/api/character?page=${page}`);
+      while (url) {
+        const res = await fetch(url);
         const data = await res.json();
 
-        if (data.results) {
-          setCharacters((prevCharacters) => [...prevCharacters, ...data.results]);
-        }
-      } catch (error) {
-        console.error('Error fetching characters', error);
-      } finally {
-        setLoading(false);
+        if (data.results) allResults = [...allResults, ...data.results];
+        url = data.info.next || null;
       }
-    };
 
-    fetchCharacters();
-  }, [page]);
+      return allResults;
+    },
+    {
+      retry: 1,
+      refetchOnWindowFocus: false,
+    }
+  );
 
   useEffect(() => {
-    const handleScroll = () => {
-      const scrollTop = window.scrollY;
-      const windowHeight = window.innerHeight;
-      const fullHeight = document.documentElement.scrollHeight;
-
-      if (scrollTop + windowHeight >= fullHeight - 20 && !loading) {
-        setPage((prevPage) => prevPage + 1);
-      }
-    };
-
-    window.addEventListener('scroll', handleScroll);
-
-    return () => window.removeEventListener('scroll', handleScroll);
-  }, [loading]);
+    if (data) {
+      setCharacters(data);
+    }
+  }, [data]);
 
   return (
-    <div style={{ backgroundImage: `url(${Background})` }} className="bg-cover bg-fixed bg-no-repeat h-[100%] w-full">
+    <div style={{ backgroundImage: `url(${Background})` }} className="bg-cover bg-fixed bg-no-repeat h-[100%] min-h-[100vh] w-full">
       <div className="grid grid-cols-1 grid-rows-auto max-w-[1200px] mx-auto justify-items-center pt-[60px]">
-        <SearchBar />
+        <SearchBar isSearching={setIsSearching} characters={characters} searchedCharacters={setFilteredCharacters} />
+
+        <div>
+          <SortConditionItem isSearching={setIsSearching} characters={characters} searchedCharacters={setFilteredCharacters}>
+            from A to Z
+          </SortConditionItem>
+        </div>
 
         <div className="w-full h-max py-[30px] px-[10px] bg-ivory-white bg-opacity-5 backdrop-blur-lg rounded-[10px] grid grid-cols-3 grid-rows-auto gap-[20px] justify-items-center">
-          {characters.length > 0 ? characters.map((el) => <ListItem key={el.id} character={el} />) : <p>Loading characters...</p>}
+          {isLoading ? (
+            <p className="text-ivory-white font-barlow text-lg tracking-widest">Loading characters...</p>
+          ) : !isSearching ? (
+            characters.map((el) => <ListItem key={el.id} character={el} />)
+          ) : (
+            filteredCharacters.map((el) => <ListItem key={el.id} character={el} />)
+          )}
         </div>
       </div>
     </div>
   );
 }
+
+// //infinite scroll data fetching function
+// useEffect(() => {
+//   const handleScroll = () => {
+//     const scrollTop = window.scrollY;
+//     const windowHeight = window.innerHeight;
+//     const fullHeight = document.documentElement.scrollHeight;
+
+//     if (scrollTop + windowHeight >= fullHeight - 20 && !loading) {
+//       setPage((prevPage) => prevPage + 1);
+//     }
+//   };
+
+//   window.addEventListener('scroll', handleScroll);
+
+//   return () => window.removeEventListener('scroll', handleScroll);
+// }, [loading]);
