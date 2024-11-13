@@ -2,7 +2,7 @@ import { AiOutlineSearch } from 'react-icons/ai';
 import { motion } from 'framer-motion';
 import { useState } from 'react';
 
-export default function SearchBar({ isSearching, characters, searchedCharacters }) {
+export default function SearchBar({ isSearching, initialList, searchedCharacters }) {
   const [query, setQuery] = useState('');
 
   function handleInputChange(event) {
@@ -10,6 +10,7 @@ export default function SearchBar({ isSearching, characters, searchedCharacters 
 
     if (event.target.value === '') {
       isSearching(false);
+      searchedCharacters(initialList);
     }
   }
 
@@ -17,8 +18,8 @@ export default function SearchBar({ isSearching, characters, searchedCharacters 
     isSearching(true);
 
     try {
-      const searchResults = characters.filter((character) => {
-        return Object.values(character).some((value) => {
+      const searchResults = initialList.filter((item) => {
+        return Object.values(item).some((value) => {
           const stringValue = String(value).toLowerCase();
 
           if (stringValue.startsWith('http://') || stringValue.startsWith('https://')) {
