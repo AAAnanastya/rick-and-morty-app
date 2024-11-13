@@ -4,10 +4,11 @@ import FilterSelector from './FilterSelector';
 export default function FiltersBar({ isFiltered, initialList, updateFilteredList }) {
   const [order, setOrder] = useState('');
   const [status, setStatus] = useState('');
+  const [species, setSpecies] = useState('');
   const [exceptionList, setExceptionList] = useState([]);
 
   useEffect(() => {
-    if (order === '' && status === '') {
+    if (order === '' && status === '' && species === '') {
       isFiltered(false);
       updateFilteredList(initialList);
       setExceptionList([]);
@@ -40,13 +41,39 @@ export default function FiltersBar({ isFiltered, initialList, updateFilteredList
       ]);
     }
 
+    if (species) {
+      exceptions = results.filter((item) => item.species.toLowerCase() !== species.toLowerCase());
+      results = results.filter((item) => item.species.toLowerCase() === species.toLowerCase());
+      setExceptionList((prevExceptions) => [
+        ...prevExceptions,
+        ...exceptions.filter((item) => !prevExceptions.some((ex) => ex.id === item.id)),
+      ]);
+    }
+
     updateFilteredList(results);
-  }, [order, status, initialList]);
+  }, [order, status, species, initialList]);
 
   return (
-    <div>
+    <div className="mb-[10px]">
       <FilterSelector sortBy="Order" initial="Sort by" filters={['From A to Z', 'From Z to A']} onSelect={setOrder} />
       <FilterSelector sortBy="Status" initial="Status" filters={['Alive', 'Dead', 'Unknown']} onSelect={setStatus} />
+      <FilterSelector
+        initial="Species"
+        sortBy="Species"
+        filters={[
+          'Human',
+          'Alien',
+          'Humanoid',
+          'Poopybutthole',
+          'Mythological Creature',
+          'Animal',
+          'Robot',
+          'Cronenberg',
+          'Disease',
+          'unknown',
+        ]}
+        onSelect={setSpecies}
+      />
     </div>
   );
 }

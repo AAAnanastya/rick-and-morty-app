@@ -37,7 +37,7 @@ export default function SearchBar({ isSearching, initialList, searchedCharacters
   }
 
   return (
-    <div className="relative flex justify-center my-[30px] w-max">
+    <div className="relative flex justify-center my-[20px] w-max">
       <motion.input
         type="search"
         value={query}
