@@ -3,8 +3,8 @@ import { useQuery } from 'react-query';
 
 import SearchBar from '../components/SearchBar';
 import Background from '../assets/bg-cosmos.jpg';
-import ListItem from '../components/ListItem';
 import FiltersBar from '../components/FiltersBar';
+import ItemsList from '../components/ItemsList';
 
 export default function CharactersPage() {
   const [characters, setCharacters] = useState([]);
@@ -50,23 +50,16 @@ export default function CharactersPage() {
 
         <FiltersBar isFiltered={setIsFiltering} initialList={searchedCharacters} updateFilteredList={setFilteredCharacters} />
 
-        <div className="w-full h-max py-[30px] px-[10px] bg-ivory-white bg-opacity-5 backdrop-blur-lg rounded-[10px] grid grid-cols-3 grid-rows-auto gap-[20px] justify-items-center">
-          {isLoading ? (
-            <p className="text-ivory-white font-barlow text-lg tracking-widest">Loading characters...</p>
-          ) : isError ? (
-            <p className="text-ivory-white text-bold font-barlow text-lg tracking-widest">
-              Cannot fetch characters data. Please try again later.
-            </p>
-          ) : !isSearching && !isFiltering && characters.length > 0 ? (
-            characters.map((el) => <ListItem key={el.id} character={el} />)
-          ) : !isFiltering && isSearching && searchedCharacters.length > 0 ? (
-            searchedCharacters.map((el) => <ListItem key={el.id} character={el} />)
-          ) : isSearching || (isFiltering && filteredCharacters.length > 0) ? (
-            filteredCharacters.map((el) => <ListItem key={el.id} character={el} />)
-          ) : (
-            <p className="text-ivory-white font-barlow text-lg tracking-widest">No characters found.</p>
-          )}
-        </div>
+        <ItemsList
+          contentType="characters"
+          isLoading={isLoading}
+          isError={isError}
+          isSearching={isSearching}
+          isFiltering={isFiltering}
+          initialList={characters}
+          searchedList={searchedCharacters}
+          filteredList={filteredCharacters}
+        />
       </div>
     </div>
   );
