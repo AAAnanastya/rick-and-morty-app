@@ -21,5 +21,13 @@ export default {
       },
     },
   },
-  plugins: [],
+  plugins: [
+    function ({ addComponents }) {
+      addComponents({
+        'input[type="search"]::-webkit-search-cancel-button': {
+          display: 'none',
+        },
+      });
+    },
+  ],
 };

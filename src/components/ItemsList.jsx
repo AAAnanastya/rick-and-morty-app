@@ -1,8 +1,9 @@
 import ListItem from '../components/ListItem';
 
 export default function ItemsList({ isLoading, isError, isSearching, isFiltering, contentType, initialList, searchedList, filteredList }) {
+  console.log(searchedList.length);
   return (
-    <div className="w-full h-max py-[30px] px-[10px] bg-ivory-white bg-opacity-5 backdrop-blur-lg rounded-[10px] grid grid-cols-3 grid-rows-auto gap-[20px] justify-items-center">
+    <div className="w-full h-max py-[30px] px-[30px] bg-deep-blue bg-opacity-30 backdrop-blur-[50px] rounded-[10px] grid grid-cols-3 grid-rows-auto gap-[30px] justify-items-center">
       {isLoading ? (
         <p className="text-ivory-white font-barlow text-lg tracking-widest">Loading {contentType}...</p>
       ) : isError ? (
@@ -10,11 +11,11 @@ export default function ItemsList({ isLoading, isError, isSearching, isFiltering
           Cannot fetch {contentType} data. Please try again later.
         </p>
       ) : !isSearching && !isFiltering && initialList.length > 0 ? (
-        initialList.map((el) => <ListItem key={el.id} character={el} />)
+        initialList.map((el) => <ListItem key={el.id} item={el} />)
       ) : !isFiltering && isSearching && searchedList.length > 0 ? (
-        searchedList.map((el) => <ListItem key={el.id} character={el} />)
-      ) : isSearching || (isFiltering && filteredList.length > 0) ? (
-        filteredList.map((el) => <ListItem key={el.id} character={el} />)
+        searchedList.map((el) => <ListItem key={el.id} item={el} />)
+      ) : (isSearching || isFiltering) && filteredList.length > 0 ? (
+        filteredList.map((el) => <ListItem key={el.id} item={el} />)
       ) : (
         <p className="text-ivory-white font-barlow text-lg tracking-widest">No {contentType} found.</p>
       )}

@@ -45,7 +45,7 @@ export default function CharactersPage() {
 
   return (
     <div style={{ backgroundImage: `url(${Background})` }} className="bg-cover bg-fixed bg-no-repeat h-[100%] min-h-[100vh] w-full">
-      <div className="grid grid-cols-1 grid-rows-auto max-w-[1200px] mx-auto justify-items-center pt-[60px]">
+      <div className="grid grid-cols-1 grid-rows-auto max-w-[1150px] mx-auto justify-items-center pt-[60px]">
         <SearchBar isSearching={setIsSearching} initialList={characters} searchedCharacters={setSearchedCharacters} />
 
         <FiltersBar isFiltered={setIsFiltering} initialList={searchedCharacters} updateFilteredList={setFilteredCharacters} />

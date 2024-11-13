@@ -30,6 +30,10 @@ export default function SearchBar({ isSearching, initialList, searchedCharacters
         });
       });
 
+      if (searchResults == undefined) {
+        searchResults = [];
+      }
+      console.log(searchResults);
       searchedCharacters(searchResults);
     } catch (error) {
       console.error('Sorry. Cannot find the information.', error);
@@ -44,13 +48,13 @@ export default function SearchBar({ isSearching, initialList, searchedCharacters
         onChange={handleInputChange}
         className="w-[450px] h-[40px] p-4 rounded-full bg-ivory-white text-deep-blue font-barlow text-lg placeholder-deep-blue placeholder-opacity-75 appearance-none focus:outline-none"
         placeholder="Search..."
-        initial={{ boxShadow: '0 0 10px 2px transparent' }}
+        initial={{ boxShadow: '0 0 5px 2px transparent' }}
         whileHover={{
-          boxShadow: '0 0 10px 2px #00b0c8',
+          boxShadow: '0 0 5px 2px #f5e43e',
           transition: { duration: 0.5, ease: 'easeInOut' },
         }}
         whileFocus={{
-          boxShadow: '0 0 10px 2px #00b0c8',
+          boxShadow: '0 0 5px 2px #f5e43e',
           transition: { duration: 0.5, ease: 'easeInOut' },
         }}
       />
