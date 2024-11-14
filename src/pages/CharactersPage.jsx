@@ -5,6 +5,7 @@ import SearchBar from '../components/SearchBar';
 import Background from '../assets/bg-cosmos.jpg';
 import FiltersBar from '../components/FiltersBar';
 import ItemsList from '../components/ItemsList';
+import AllDataPageGrid from '../components/AllDataPageGrid';
 
 export default function CharactersPage() {
   const [characters, setCharacters] = useState([]);
@@ -44,48 +45,46 @@ export default function CharactersPage() {
   }, [data]);
 
   return (
-    <div style={{ backgroundImage: `url(${Background})` }} className="bg-cover bg-fixed bg-no-repeat h-[100%] min-h-[100vh] w-full">
-      <div className="grid grid-cols-1 grid-rows-auto max-w-[1150px] mx-auto justify-items-center pt-[60px]">
-        <SearchBar isSearching={setIsSearching} initialList={characters} searchedCharacters={setSearchedCharacters} />
+    <AllDataPageGrid background={Background}>
+      <SearchBar isSearching={setIsSearching} initialList={characters} searchedCharacters={setSearchedCharacters} />
 
-        <FiltersBar
-          isFiltered={setIsFiltering}
-          initialList={searchedCharacters}
-          updateFilteredList={setFilteredCharacters}
-          initialFilters={{ status: '', species: '' }}
-          selectorOptions={{
-            status: { sortBy: 'status', initial: 'Status', options: ['Alive', 'Dead', 'Unknown'] },
-            species: {
-              sortBy: 'species',
-              initial: 'species',
-              options: [
-                'Human',
-                'Alien',
-                'Humanoid',
-                'Poopybutthole',
-                'Mythological Creature',
-                'Animal',
-                'Robot',
-                'Cronenberg',
-                'Disease',
-                'unknown',
-              ],
-            },
-          }}
-        />
+      <FiltersBar
+        isFiltered={setIsFiltering}
+        initialList={searchedCharacters}
+        updateFilteredList={setFilteredCharacters}
+        initialFilters={{ status: '', species: '' }}
+        selectorOptions={{
+          status: { sortBy: 'status', initial: 'Status', options: ['Alive', 'Dead', 'Unknown'] },
+          species: {
+            sortBy: 'species',
+            initial: 'species',
+            options: [
+              'Human',
+              'Alien',
+              'Humanoid',
+              'Poopybutthole',
+              'Mythological Creature',
+              'Animal',
+              'Robot',
+              'Cronenberg',
+              'Disease',
+              'unknown',
+            ],
+          },
+        }}
+      />
 
-        <ItemsList
-          contentType="characters"
-          isLoading={isLoading}
-          isError={isError}
-          isSearching={isSearching}
-          isFiltering={isFiltering}
-          initialList={characters}
-          searchedList={searchedCharacters}
-          filteredList={filteredCharacters}
-        />
-      </div>
-    </div>
+      <ItemsList
+        contentType="characters"
+        isLoading={isLoading}
+        isError={isError}
+        isSearching={isSearching}
+        isFiltering={isFiltering}
+        initialList={characters}
+        searchedList={searchedCharacters}
+        filteredList={filteredCharacters}
+      />
+    </AllDataPageGrid>
   );
 }
 
