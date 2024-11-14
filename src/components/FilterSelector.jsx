@@ -11,7 +11,7 @@ export default function FilterSelector({ sortBy, initial, filters, onSelect }) {
 
   return (
     <select
-      className="m-4 p-[3px] w-[85px] rounded-[5px] bg-ivory-white text-deep-blue font-barlow text-md"
+      className="m-4 p-[3px] w-[85px] rounded-[5px] bg-ivory-white text-deep-blue font-barlow text-md focus:outline-none hover:shadow-custom-yellow hover:shadow-md"
       value={sortOption}
       onChange={handleChange}>
       <option value={initial} disabled>

@@ -54,7 +54,7 @@ export default function FiltersBar({ isFiltered, initialList, updateFilteredList
   }, [order, status, species, initialList]);
 
   return (
-    <div className="mb-[10px]">
+    <div className="mb-[20px]">
       <FilterSelector sortBy="Order" initial="Sort by" filters={['From A to Z', 'From Z to A']} onSelect={setOrder} />
       <FilterSelector sortBy="Status" initial="Status" filters={['Alive', 'Dead', 'Unknown']} onSelect={setStatus} />
       <FilterSelector

@@ -1,7 +1,6 @@
 import ListItem from '../components/ListItem';
 
 export default function ItemsList({ isLoading, isError, isSearching, isFiltering, contentType, initialList, searchedList, filteredList }) {
-  console.log(searchedList.length);
   return (
     <div className="w-full h-max py-[30px] px-[30px] bg-deep-blue bg-opacity-30 backdrop-blur-[50px] rounded-[10px] grid grid-cols-3 grid-rows-auto gap-[30px] justify-items-center">
       {isLoading ? (

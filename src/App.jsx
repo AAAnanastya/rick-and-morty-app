@@ -5,8 +5,8 @@ import { QueryClient, QueryClientProvider } from 'react-query';
 import RootLayout from './components/RootLayout';
 import HomePage from './pages/HomePage';
 import CharactersPage from './pages/CharactersPage';
-import PlanetsPage from './pages/PlanetsPage';
 import EpisodesPage from './pages/EpisodesPage';
+import LocationsPage from './pages/LocationsPage';
 
 const router = createBrowserRouter([
   {
@@ -15,7 +15,7 @@ const router = createBrowserRouter([
     children: [
       { index: true, element: <HomePage /> },
       { path: 'characters', element: <CharactersPage /> },
-      { path: 'planets', element: <PlanetsPage /> },
+      { path: 'locations', element: <LocationsPage /> },
       { path: 'episodes', element: <EpisodesPage /> },
     ],
   },

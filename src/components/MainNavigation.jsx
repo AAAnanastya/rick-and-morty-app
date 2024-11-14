@@ -12,7 +12,7 @@ export default function MainNavigation() {
             <NavLink to="/characters">Characters</NavLink>
           </li>
           <li>
-            <NavLink to="/planets">Planets</NavLink>
+            <NavLink to="/locations">Locations</NavLink>
           </li>
           <li>
             <NavLink to="/episodes">Episodes</NavLink>
