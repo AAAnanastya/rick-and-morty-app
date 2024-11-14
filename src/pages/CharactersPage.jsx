@@ -48,7 +48,31 @@ export default function CharactersPage() {
       <div className="grid grid-cols-1 grid-rows-auto max-w-[1150px] mx-auto justify-items-center pt-[60px]">
         <SearchBar isSearching={setIsSearching} initialList={characters} searchedCharacters={setSearchedCharacters} />
 
-        <FiltersBar isFiltered={setIsFiltering} initialList={searchedCharacters} updateFilteredList={setFilteredCharacters} />
+        <FiltersBar
+          isFiltered={setIsFiltering}
+          initialList={searchedCharacters}
+          updateFilteredList={setFilteredCharacters}
+          initialFilters={{ status: '', species: '' }}
+          selectorOptions={{
+            status: { sortBy: 'status', initial: 'Status', options: ['Alive', 'Dead', 'Unknown'] },
+            species: {
+              sortBy: 'species',
+              initial: 'species',
+              options: [
+                'Human',
+                'Alien',
+                'Humanoid',
+                'Poopybutthole',
+                'Mythological Creature',
+                'Animal',
+                'Robot',
+                'Cronenberg',
+                'Disease',
+                'unknown',
+              ],
+            },
+          }}
+        />
 
         <ItemsList
           contentType="characters"
