@@ -57,7 +57,7 @@ export default function CharactersPage() {
           status: { sortBy: 'status', initial: 'Status', options: ['Alive', 'Dead', 'Unknown'] },
           species: {
             sortBy: 'species',
-            initial: 'species',
+            initial: 'Species',
             options: [
               'Human',
               'Alien',

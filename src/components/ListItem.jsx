@@ -1,6 +1,17 @@
 import { motion } from 'framer-motion';
 
 export default function ListItem({ item }) {
+  let seasonNum;
+  let episodeNum;
+
+  if (typeof item.episode === 'string') {
+    const match = item.episode.match(/^S(\d+)E(\d+)$/);
+    if (match) {
+      seasonNum = parseInt(match[1], 10);
+      episodeNum = parseInt(match[2], 10);
+    }
+  }
+
   return (
     <motion.div
       className="w-[310px] h-[150px] bg-deep-blue rounded-[15px] overflow-hidden shadow-md shadow-custom-yellow flex items-center relative"
@@ -20,11 +31,19 @@ export default function ListItem({ item }) {
           Learn more
         </motion.p>
       </motion.div>
+
       {item.image && <img src={item.image} alt={item.name} className="h-[100%] w-auto object-cover" />}
       {item.image && <div className="absolute inset-0 top-0 left-[24%] h-full w-1/4 bg-gradient-to-r from-transparent to-deep-blue"></div>}
+
       <div className="w-[310px] flex flex-col items-center text-center">
-        {!item.image && item.type !== '' && <h1 className="w-100% font-bungee text-custom-yellow text-lg">{item.type}:</h1>}
-        <h1 className="font-bungee text-custom-yellow text-lg z-10">{item.name}</h1>
+        {!item.image && item.type && item.type !== '' && <h1 className="w-100% font-bungee text-custom-yellow text-lg">{item.type}:</h1>}
+        <h1 className="font-bungee text-custom-yellow text-lg z-10 max-w-[260px]">{item.name}</h1>
+        {typeof item.episode === 'string' && (
+          <h2 className="font-barlow text-custom-yellow text-md tracking-wider z-10">
+            Season: {seasonNum}
+            {'\u00A0'}Episode: {episodeNum}
+          </h2>
+        )}
       </div>
     </motion.div>
   );
