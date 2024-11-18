@@ -7,6 +7,7 @@ import HomePage from './pages/HomePage';
 import CharactersPage from './pages/CharactersPage';
 import EpisodesPage from './pages/EpisodesPage';
 import LocationsPage from './pages/LocationsPage';
+import CharacterCard from './components/CharacterCard';
 
 const router = createBrowserRouter([
   {
@@ -15,6 +16,7 @@ const router = createBrowserRouter([
     children: [
       { index: true, element: <HomePage /> },
       { path: 'characters', element: <CharactersPage /> },
+      { path: 'characters/:slug', element: <CharacterCard /> },
       { path: 'locations', element: <LocationsPage /> },
       { path: 'episodes', element: <EpisodesPage /> },
     ],

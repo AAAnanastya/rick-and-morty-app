@@ -15,7 +15,7 @@ export default function CharactersPage() {
   const [filteredCharacters, setFilteredCharacters] = useState([]);
 
   const { data, isLoading, isError, error, refetch } = useQuery(
-    'characterData',
+    'charactersData',
     async () => {
       let allResults = [];
       let url = `https://rickandmortyapi.com/api/character`;
@@ -38,6 +38,8 @@ export default function CharactersPage() {
 
   useEffect(() => {
     if (data) {
+      localStorage.setItem('characters', JSON.stringify(data));
+
       setCharacters(data);
       setSearchedCharacters(data);
       setFilteredCharacters(data);

@@ -1,4 +1,5 @@
 import { motion } from 'framer-motion';
+import { useNavigate } from 'react-router-dom';
 
 export default function ListItem({ item }) {
   let seasonNum;
@@ -12,8 +13,15 @@ export default function ListItem({ item }) {
     }
   }
 
+  const navigate = useNavigate();
+
+  function handleClick(characterId) {
+    navigate(`/characters/${characterId}`);
+  }
+
   return (
     <motion.div
+      onClick={() => handleClick(item.id)}
       className="w-[310px] h-[150px] bg-deep-blue rounded-[15px] overflow-hidden shadow-md shadow-custom-yellow flex items-center relative"
       whileHover="hover">
       <motion.div
