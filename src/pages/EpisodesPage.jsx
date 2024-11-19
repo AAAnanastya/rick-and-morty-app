@@ -38,6 +38,8 @@ export default function EpisodesPage() {
 
   useEffect(() => {
     if (data) {
+      localStorage.setItem('episodes', JSON.stringify(data));
+
       setEpisodes(data);
       setSearchedEpisodes(data);
       setFilteredEpisodes(data);

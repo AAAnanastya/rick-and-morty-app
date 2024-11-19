@@ -1,5 +1,5 @@
 import { motion } from 'framer-motion';
-import { useNavigate } from 'react-router-dom';
+import { useNavigate, useLocation } from 'react-router-dom';
 
 export default function ListItem({ item }) {
   let seasonNum;
@@ -14,9 +14,10 @@ export default function ListItem({ item }) {
   }
 
   const navigate = useNavigate();
+  const location = useLocation();
 
-  function handleClick(characterId) {
-    navigate(`/characters/${characterId}`);
+  function handleClick(itemId) {
+    navigate(`${location.pathname}/${itemId}`);
   }
 
   return (

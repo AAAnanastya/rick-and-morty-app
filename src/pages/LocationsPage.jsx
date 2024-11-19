@@ -38,6 +38,8 @@ export default function LocationsPage() {
 
   useEffect(() => {
     if (data) {
+      localStorage.setItem('locations', JSON.stringify(data));
+
       setLocations(data);
       setSearchedLocations(data);
       setFilteredLocations(data);

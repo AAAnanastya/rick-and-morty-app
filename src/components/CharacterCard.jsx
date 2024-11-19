@@ -55,7 +55,7 @@ export default function CharacterCard() {
         style={{ backgroundImage: `url(${Background})` }}
         className="bg-cover bg-fixed bg-no-repeat h-[100%] min-h-[100vh] w-full flex justify-center items-center py-[80px] text-ivory-white font-barlow">
         {!character ? (
-          <p>Cannot find character details. Please try again later.</p>
+          <p className="text-center">Cannot find character details. Please try again later.</p>
         ) : (
           <div className="max-w-[1000px] w-full h-auto rounded-xl grid grid-cols-3 grid-rows-auto justify-items-center items-center gap-x-[20px] border-2 border-double p-[50px] bg-ivory-white bg-opacity-5 backdrop-blur-[20px] m-4">
             <div className="flex items-center justify-center overflow-hidden">
@@ -112,7 +112,10 @@ export default function CharacterCard() {
                       const season = parseInt(episode.episode.match(/^S(\d+)E\d+$/)?.[1], 10);
                       const episodeNumber = parseInt(episode.episode.match(/^S(\d+)E(\d+)$/)?.[2], 10);
                       return (
-                        <tr key={episode.id} className="hover:bg-gray-100 hover:text-scuba-blue" onClick={() => handleEpClick(episode.id)}>
+                        <tr
+                          key={episode.id}
+                          className="hover:bg-gray-100 hover:text-scuba-blue hover:cursor-pointer"
+                          onClick={() => handleEpClick(episode.id)}>
                           <td className="pl-20 mr-6 py-2 border-b w-[150px]">Season {season}</td>
                           <td className="py-2 border-b">Episode {episodeNumber}</td>
                           <td className="pl-20 py-2 border-b">
@@ -125,7 +128,7 @@ export default function CharacterCard() {
                 </table>
               </div>
             )}
-            {loadingEpisodes && <p>Loading episodes...</p>}
+            {loadingEpisodes && <p className="p-4">Loading episodes...</p>}
           </div>
         )}
       </div>
