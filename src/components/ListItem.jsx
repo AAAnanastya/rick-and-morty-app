@@ -24,7 +24,10 @@ export default function ListItem({ item }) {
     <motion.div
       onClick={() => handleClick(item.id)}
       className="w-[310px] h-[150px] bg-deep-blue rounded-[15px] overflow-hidden shadow-md shadow-custom-yellow flex items-center relative"
-      whileHover="hover">
+      whileHover="hover"
+      initial={{ opacity: 0 }}
+      animate={{ opacity: 1 }}
+      transition={{ delay: item.id * 0.1, duration: 0.3 }}>
       <motion.div
         className="absolute w-[100%] h-[100%] bg-custom-yellow bg-opacity-60 z-20 flex justify-center items-center"
         variants={{

@@ -30,10 +30,6 @@ const router = createBrowserRouter([
 const queryClient = new QueryClient();
 
 function App() {
-  useEffect(() => {
-    document.body.style.overscrollBehavior = 'none';
-  }, []);
-
   return (
     <QueryClientProvider client={queryClient}>
       <RouterProvider router={router} />

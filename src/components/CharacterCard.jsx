@@ -1,6 +1,7 @@
 import { useParams, useNavigate } from 'react-router-dom';
 import Background from '../assets/bg-cosmos-4.jpg';
 import { useState } from 'react';
+import { motion } from 'framer-motion';
 
 export default function CharacterCard() {
   const { slug } = useParams();
@@ -64,7 +65,12 @@ export default function CharacterCard() {
             <div className="col-span-2 p-6 space-y-[50px]">
               <div className="flex gap-[30px] items-center">
                 <h2 className="text-4xl font-bungee text-scuba-blue">{character.name}</h2>
-                <span className="text-xl font-semibold text-emerald-green">{character.status}</span>
+                <span
+                  className={`text-xl font-semibold ${
+                    character.status === 'Alive' ? 'text-emerald-green' : character.status === 'Dead' ? 'text-red-900' : 'text-dark-grey'
+                  }`}>
+                  {character.status === 'unknown' ? 'status: unknown' : character.status}
+                </span>
               </div>
 
               <div className="grid grid-cols-2 gap-[30px] text-light-yellow">
@@ -98,6 +104,7 @@ export default function CharacterCard() {
                 </div>
               </div>
             </div>
+
             <button
               className="col-span-3 h-[50px] mt-[40px] m-b-[20px] w-full justify-items-center text-center py-3 px-6 bg-scuba-blue text-ivory-white rounded-lg font-semibold hover:bg-yellow-green transition-all duration-300"
               onClick={handleEpListVisibility}>
@@ -106,26 +113,25 @@ export default function CharacterCard() {
 
             {episodesVisibility && !loadingEpisodes && (
               <div className="col-span-3 mt-4 text-light-yellow max-w-[800px] w-full">
-                <table className="w-full text-left border-collapse">
-                  <tbody>
-                    {episodes.map((episode) => {
-                      const season = parseInt(episode.episode.match(/^S(\d+)E\d+$/)?.[1], 10);
-                      const episodeNumber = parseInt(episode.episode.match(/^S(\d+)E(\d+)$/)?.[2], 10);
-                      return (
-                        <tr
-                          key={episode.id}
-                          className="hover:bg-gray-100 hover:text-scuba-blue hover:cursor-pointer"
-                          onClick={() => handleEpClick(episode.id)}>
-                          <td className="pl-20 mr-6 py-2 border-b w-[150px]">Season {season}</td>
-                          <td className="py-2 border-b">Episode {episodeNumber}</td>
-                          <td className="pl-20 py-2 border-b">
-                            <a href={`/episodes/${episode.id}`}>{episode.name}</a>
-                          </td>
-                        </tr>
-                      );
-                    })}
-                  </tbody>
-                </table>
+                <div className="w-full border-collapse">
+                  {episodes.map((episode) => {
+                    const season = parseInt(episode.episode.match(/^S(\d+)E\d+$/)?.[1], 10);
+                    const episodeNumber = parseInt(episode.episode.match(/^S(\d+)E(\d+)$/)?.[2], 10);
+                    return (
+                      <motion.div
+                        key={episode.id}
+                        className="w-full border-b grid grid-cols-[repeat(2,1fr)_3fr] gap-4 py-2 hover:bg-ivory-white hover:text-scuba-blue hover:cursor-pointer"
+                        initial={{ height: 0, opacity: 0 }}
+                        animate={{ height: 'auto', opacity: 1 }}
+                        transition={{ delay: episode.id * 0.1, duration: 0.2 }}
+                        onClick={() => handleEpClick(episode.id)}>
+                        <div className="pl-20 w-[150px]">Season {season}</div>
+                        <div>Episode {episodeNumber}</div>
+                        <div>{episode.name}</div>
+                      </motion.div>
+                    );
+                  })}
+                </div>
               </div>
             )}
             {loadingEpisodes && <p className="p-4">Loading episodes...</p>}

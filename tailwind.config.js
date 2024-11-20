@@ -22,7 +22,12 @@ export default {
     },
   },
   plugins: [
-    function ({ addComponents }) {
+    function ({ addBase, addComponents }) {
+      addBase({
+        body: {
+          'overscroll-behavior': 'none',
+        },
+      });
       addComponents({
         'input[type="search"]::-webkit-search-cancel-button': {
           display: 'none',
