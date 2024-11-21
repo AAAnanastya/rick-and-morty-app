@@ -1,4 +1,7 @@
 /** @type {import('tailwindcss').Config} */
+
+const plugin = require('tailwindcss/plugin');
+
 export default {
   content: ['./index.html', './src/**/*.{js,ts,jsx,tsx}'],
   theme: {
@@ -19,9 +22,23 @@ export default {
         barlow: ['"Barlow Condensed"', 'sans-serif'],
         bungee: ['Bungee', 'cursive'],
       },
+      textShadow: {
+        dark: '0 2px 4px #101f3d',
+        light: '0 2px 4px #1a1a1a',
+      },
     },
   },
   plugins: [
+    plugin(function ({ matchUtilities, theme }) {
+      matchUtilities(
+        {
+          'text-shadow': (value) => ({
+            textShadow: value,
+          }),
+        },
+        { values: theme('textShadow') }
+      );
+    }),
     function ({ addBase, addComponents }) {
       addBase({
         body: {

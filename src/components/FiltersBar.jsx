@@ -30,7 +30,8 @@ export default function FiltersBar({ filtersOptions, selectorOptions, filters, f
   }, [currentFilters]);
 
   return (
-    <div className="mb-[20px]">
+    <div className="mb-[20px] px-[20px] rounded-full flex items-center gap-6">
+      <p className="font-bungee text-[16px] text-shadow-2 text-shadow-dark text-ivory-white mt-[3px]">Sort by:</p>
       {Object.entries(selectorOptions).map(([key, value]) => (
         <FilterSelector key={key} sortBy={value.sortBy} initial={value.initial} filters={value.options} onSelect={setCurrentFilters} />
       ))}
