@@ -1,20 +1,16 @@
 import { useState } from 'react';
 
-export default function FilterSelector({ sortBy, initial, filters, onSelectOrder, onSelectAnother }) {
+export default function FilterSelector({ sortBy, initial, filters, onSelect }) {
   const [sortOption, setSortOption] = useState(initial);
 
   function handleChange(id, event) {
     const sortParams = event ? event.target.value : sortOption;
     setSortOption(sortParams);
 
-    if (id == 'order') {
-      onSelectOrder(sortParams);
-    } else {
-      onSelectAnother((prevFilter) => ({
-        ...prevFilter,
-        [id]: sortParams,
-      }));
-    }
+    onSelect((prevFilter) => ({
+      ...prevFilter,
+      [id]: sortParams,
+    }));
   }
 
   return (

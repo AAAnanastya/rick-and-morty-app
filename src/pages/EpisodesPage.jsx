@@ -8,54 +8,17 @@ import ItemsList from '../components/ItemsList';
 import AllDataPageGrid from '../components/AllDataPageGrid';
 
 export default function EpisodesPage() {
-  const [episodes, setEpisodes] = useState([]);
-  const [isSearching, setIsSearching] = useState(false);
-  const [searchedEpisodes, setSearchedEpisodes] = useState([]);
-  const [isFiltering, setIsFiltering] = useState(false);
-  const [filteredEpisodes, setFilteredEpisodes] = useState([]);
-
-  const { data, isLoading, isError, error, refetch } = useQuery(
-    'episodesData',
-    async () => {
-      let allResults = [];
-      let url = `https://rickandmortyapi.com/api/episode`;
-
-      while (url) {
-        const res = await fetch(url);
-        const data = await res.json();
-
-        if (data.results) allResults = [...allResults, ...data.results];
-        url = data.info.next || null;
-      }
-
-      return allResults;
-    },
-    {
-      retry: 1,
-      refetchOnWindowFocus: false,
-    }
-  );
-
-  useEffect(() => {
-    if (data) {
-      localStorage.setItem('episodes', JSON.stringify(data));
-
-      setEpisodes(data);
-      setSearchedEpisodes(data);
-      setFilteredEpisodes(data);
-    }
-  }, [data]);
+  let url = `https://rickandmortyapi.com/api/episode`;
+  const [filters, setFilters] = useState([]);
 
   return (
     <AllDataPageGrid background={Background}>
-      <SearchBar isSearching={setIsSearching} initialList={episodes} searchedCharacters={setSearchedEpisodes} />
+      <SearchBar filters={filters} filtersChanger={setFilters} />
 
       <FiltersBar
-        isEpisodes
-        isFiltered={setIsFiltering}
-        initialList={searchedEpisodes}
-        updateFilteredList={setFilteredEpisodes}
-        initialFilters={{ airData: '', season: '' }}
+        filters={filters}
+        filtersChanger={setFilters}
+        filtersOptions={{ airData: '', season: '' }}
         selectorOptions={{
           airData: { sortBy: 'air_date', initial: 'Sort by', options: ['Newest First', 'Oldest First'] },
           season: {
@@ -66,16 +29,7 @@ export default function EpisodesPage() {
         }}
       />
 
-      <ItemsList
-        contentType="episodes"
-        isLoading={isLoading}
-        isError={isError}
-        isSearching={isSearching}
-        isFiltering={isFiltering}
-        initialList={episodes}
-        searchedList={searchedEpisodes}
-        filteredList={filteredEpisodes}
-      />
+      <ItemsList contentType="episodes" url={url} filters={filters} />
     </AllDataPageGrid>
   );
 }

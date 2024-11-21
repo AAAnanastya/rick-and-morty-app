@@ -8,53 +8,17 @@ import ItemsList from '../components/ItemsList';
 import AllDataPageGrid from '../components/AllDataPageGrid';
 
 export default function LocationsPage() {
-  const [locations, setLocations] = useState([]);
-  const [isSearching, setIsSearching] = useState(false);
-  const [searchedLocations, setSearchedLocations] = useState([]);
-  const [isFiltering, setIsFiltering] = useState(false);
-  const [filteredLocations, setFilteredLocations] = useState([]);
-
-  const { data, isLoading, isError, error, refetch } = useQuery(
-    'planetsData',
-    async () => {
-      let allResults = [];
-      let url = `https://rickandmortyapi.com/api/location`;
-
-      while (url) {
-        const res = await fetch(url);
-        const data = await res.json();
-
-        if (data.results) allResults = [...allResults, ...data.results];
-        url = data.info.next || null;
-      }
-
-      return allResults;
-    },
-    {
-      retry: 1,
-      refetchOnWindowFocus: false,
-    }
-  );
-
-  useEffect(() => {
-    if (data) {
-      localStorage.setItem('locations', JSON.stringify(data));
-
-      setLocations(data);
-      setSearchedLocations(data);
-      setFilteredLocations(data);
-    }
-  }, [data]);
+  let url = `https://rickandmortyapi.com/api/location`;
+  const [filters, setFilters] = useState([]);
 
   return (
     <AllDataPageGrid background={Background}>
-      <SearchBar isSearching={setIsSearching} initialList={locations} searchedCharacters={setSearchedLocations} />
+      <SearchBar filters={filters} filtersChanger={setFilters} />
 
       <FiltersBar
-        isFiltered={setIsFiltering}
-        initialList={searchedLocations}
-        updateFilteredList={setFilteredLocations}
-        initialFilters={{ type: '', dimension: '' }}
+        filters={filters}
+        filtersChanger={setFilters}
+        filtersOptions={{ type: '', dimension: '' }}
         selectorOptions={{
           type: {
             sortBy: 'type',
@@ -149,16 +113,7 @@ export default function LocationsPage() {
         }}
       />
 
-      <ItemsList
-        contentType="planets"
-        isLoading={isLoading}
-        isError={isError}
-        isSearching={isSearching}
-        isFiltering={isFiltering}
-        initialList={locations}
-        searchedList={searchedLocations}
-        filteredList={filteredLocations}
-      />
+      <ItemsList contentType="planets" iurl={url} filters={filters} />
     </AllDataPageGrid>
   );
 }

@@ -2,41 +2,33 @@ import { AiOutlineSearch } from 'react-icons/ai';
 import { motion } from 'framer-motion';
 import { useState } from 'react';
 
-export default function SearchBar({ isSearching, initialList, searchedCharacters }) {
+export default function SearchBar({ filters, filtersChanger }) {
   const [query, setQuery] = useState('');
 
   function handleInputChange(event) {
     setQuery(event.target.value);
 
     if (event.target.value === '') {
-      isSearching(false);
-      searchedCharacters(initialList);
+      let exclusion = filters.filter((filter) => !/^name=/.test(filter));
+
+      if (exclusion !== -1) {
+        filtersChanger(exclusion);
+      }
     }
   }
 
   function handleSearch(searchParams) {
-    isSearching(true);
+    let newUrlParams = `name=${searchParams.trim().toLowerCase().replace(/ /g, '%20')}`;
 
-    try {
-      const searchResults = initialList.filter((item) => {
-        return Object.values(item).some((value) => {
-          const stringValue = String(value).toLowerCase();
-
-          if (stringValue.startsWith('http://') || stringValue.startsWith('https://')) {
-            return false;
-          }
-
-          return stringValue.includes(searchParams.toLowerCase());
-        });
-      });
-
-      if (searchResults == undefined) {
-        searchResults = [];
+    if (filters.lenght == 0 && newUrlParams.length >= 1) {
+      filtersChanger(newUrlParams);
+    } else if (newUrlParams.length >= 1) {
+      let exclusion = filters.filter((filter) => !/^name=/.test(filter));
+      if (exclusion !== -1) {
+        filtersChanger([...exclusion, newUrlParams]);
+      } else {
+        filtersChanger(newUrlParams);
       }
-      console.log(searchResults);
-      searchedCharacters(searchResults);
-    } catch (error) {
-      console.error('Sorry. Cannot find the information.', error);
     }
   }
 

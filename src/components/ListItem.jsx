@@ -27,7 +27,7 @@ export default function ListItem({ item }) {
       whileHover="hover"
       initial={{ opacity: 0 }}
       animate={{ opacity: 1 }}
-      transition={{ delay: item.id * 0.1, duration: 0.3 }}>
+      transition={{ delay: 0.3, duration: 0.7 }}>
       <motion.div
         className="absolute w-[100%] h-[100%] bg-custom-yellow bg-opacity-60 z-20 flex justify-center items-center"
         variants={{
