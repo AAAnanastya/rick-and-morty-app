@@ -24,7 +24,7 @@ export default {
       },
       textShadow: {
         dark: '0 2px 4px #101f3d',
-        light: '0 2px 4px #1a1a1a',
+        light: '0 2px 4px #bad049',
       },
     },
   },
@@ -36,7 +36,10 @@ export default {
             textShadow: value,
           }),
         },
-        { values: theme('textShadow') }
+        {
+          values: theme('textShadow'),
+          variants: ['hover', 'focus'],
+        }
       );
     }),
     function ({ addBase, addComponents }) {

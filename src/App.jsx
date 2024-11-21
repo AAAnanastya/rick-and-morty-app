@@ -6,9 +6,9 @@ import HomePage from './pages/HomePage';
 import CharactersPage from './pages/CharactersPage';
 import EpisodesPage from './pages/EpisodesPage';
 import LocationsPage from './pages/LocationsPage';
-import CharacterCard from './components/content_pages_components/content_cards/CharacterCard';
-import LocationCard from './components/content_pages_components/content_cards/LocationCard';
-import EpisodeCard from './components/content_pages_components/content_cards/EpisodeCard';
+import CharacterCard from './components/content_pages_components/content_item_cards/CharacterCard';
+import LocationCard from './components/content_pages_components/content_item_cards/LocationCard';
+import EpisodeCard from './components/content_pages_components/content_item_cards/EpisodeCard';
 
 const router = createBrowserRouter([
   {

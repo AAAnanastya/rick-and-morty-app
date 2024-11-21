@@ -6,16 +6,24 @@ export default function MainNavigation() {
       <nav>
         <ul className="flex gap-[160px] text-ivory-white font-bungee tracking-widest">
           <li>
-            <NavLink to="/">Home</NavLink>
+            <NavLink className="hover:text-shadow-light" to="/">
+              Home
+            </NavLink>
           </li>
           <li>
-            <NavLink to="/characters">Characters</NavLink>
+            <NavLink className="hover:text-shadow-light " to="/characters">
+              Characters
+            </NavLink>
           </li>
           <li>
-            <NavLink to="/locations">Locations</NavLink>
+            <NavLink className="hover:text-shadow-light" to="/locations">
+              Locations
+            </NavLink>
           </li>
           <li>
-            <NavLink to="/episodes">Episodes</NavLink>
+            <NavLink className="hover:text-shadow-light" to="/episodes">
+              Episodes
+            </NavLink>
           </li>
         </ul>
       </nav>

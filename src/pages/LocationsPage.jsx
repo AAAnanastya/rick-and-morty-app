@@ -4,14 +4,14 @@ import SearchBar from '../components/content_pages_components/content_filtering/
 import Background from '../assets/bg-cosmos-3.jpg';
 import FiltersBar from '../components/content_pages_components/content_filtering/FiltersBar';
 import ItemsList from '../components/content_pages_components/ItemsList';
-import AllDataPageGrid from '../components/content_pages_components/AllDataPageGrid';
+import PageGrid from '../components/content_pages_components/PageGrid';
 
 export default function LocationsPage() {
   let url = `https://rickandmortyapi.com/api/location`;
   const [filters, setFilters] = useState([]);
 
   return (
-    <AllDataPageGrid background={Background}>
+    <PageGrid background={Background}>
       <SearchBar filters={filters} filtersChanger={setFilters} />
 
       <FiltersBar
@@ -113,6 +113,6 @@ export default function LocationsPage() {
       />
 
       <ItemsList contentType="planets" url={url} filters={filters} />
-    </AllDataPageGrid>
+    </PageGrid>
   );
 }

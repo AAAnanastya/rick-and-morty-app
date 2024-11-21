@@ -2,6 +2,8 @@ import { useParams, useNavigate } from 'react-router-dom';
 import Background from '../../../assets/bg-cosmos-6.jpg';
 import { useQuery } from 'react-query';
 
+import InnerCharactersList from './InnerCharactersList.jsx';
+
 export default function LocationCard() {
   const { slug } = useParams();
   const navigate = useNavigate();
@@ -56,17 +58,7 @@ export default function LocationCard() {
             <h2 className="col-span-2 font-bungee text-2xl tracking-[30px]">Residents</h2>
             {loadingResidents && <p className="p-4">Loading residents...</p>}{' '}
             {!loadingResidents && residents?.length > 0 && (
-              <div className="col-span-2 grid grid-cols-[repeat(auto-fill,minmax(160px,1fr))] gap-4 w-full mt-[30px]">
-                {residents.map((character) => (
-                  <div
-                    key={character.id}
-                    className="bg-ivory-white rounded-lg shadow-md overflow-hidden hover:cursor-pointer"
-                    onClick={() => handleNavigateToCharCard(character.id)}>
-                    <img className="object-cover w-full" src={character.image} alt={character.name} />
-                    <h1 className="text-dark-green text-center font-bold font-barlow text-md">{character.name}</h1>
-                  </div>
-                ))}
-              </div>
+              <InnerCharactersList list={residents} handleNavigate={handleNavigateToCharCard} />
             )}
             {residentsNotFound && <p className="col-span-2 text-center text-lg mt-[30px]">Residents data is not found.</p>}
           </div>
