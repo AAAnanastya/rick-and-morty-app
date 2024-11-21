@@ -4,8 +4,13 @@ export default function FilterSelector({ sortBy, initial, filters, onSelect }) {
   const [sortOption, setSortOption] = useState(initial);
 
   function handleChange(id, event) {
-    const sortParams = event ? event.target.value : sortOption;
+    let sortParams = event ? event.target.value : sortOption;
     setSortOption(sortParams);
+
+    if (/^Season/.test(sortParams)) {
+      let number = sortParams.charAt(sortParams.length - 1);
+      sortParams = `S0${number}`;
+    }
 
     onSelect((prevFilter) => ({
       ...prevFilter,

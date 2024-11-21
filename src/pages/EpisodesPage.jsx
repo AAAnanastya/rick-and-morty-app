@@ -17,13 +17,12 @@ export default function EpisodesPage() {
       <FiltersBar
         filters={filters}
         filtersChanger={setFilters}
-        filtersOptions={{ airData: '', season: '' }}
+        filtersOptions={{ season: '' }}
         selectorOptions={{
-          airData: { sortBy: 'air_date', initial: 'Sort by', options: ['Newest First', 'Oldest First'] },
           season: {
             sortBy: 'episode',
             initial: 'Season',
-            options: ['Season 1', 'Season 2', 'Season 3', 'Season 4', 'Season 5', 'Season 6', 'Season 7', 'Season 8'],
+            options: ['Season 1', 'Season 2', 'Season 3', 'Season 4', 'Season 5'],
           },
         }}
       />
