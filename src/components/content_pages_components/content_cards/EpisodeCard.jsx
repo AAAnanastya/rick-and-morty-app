@@ -1,35 +1,35 @@
 import { useParams, useNavigate } from 'react-router-dom';
-import Background from '../assets/bg-cosmos-6.jpg';
+import Background from '../../../assets/bg-cosmos-5.jpg';
 import { useQuery } from 'react-query';
 
-export default function LocationCard() {
+export default function EpisodeCard() {
   const { slug } = useParams();
   const navigate = useNavigate();
 
-  const locationQueryKey = `locationId${slug}`;
-  const residentsQueryKey = `location${slug}residents`;
+  const episodeQueryKey = `episodeId${slug}`;
+  const charactersQueryKey = `edisode${slug}characters`;
 
   const {
-    data: location,
-    isLoading: loadingLocation,
-    isError: locationNotFound,
-  } = useQuery(locationQueryKey, async () => {
-    const res = await fetch(`https://rickandmortyapi.com/api/location/${slug}`);
+    data: episode,
+    isLoading: loadingEpisode,
+    isError: episodeNotFound,
+  } = useQuery(episodeQueryKey, async () => {
+    const res = await fetch(`https://rickandmortyapi.com/api/episode/${slug}`);
     const data = await res.json();
     return data;
   });
 
   const {
-    data: residents,
-    isLoading: loadingResidents,
-    isError: residentsNotFound,
+    data: characters,
+    isLoading: loadingCharacters,
+    isError: charactersNotFound,
   } = useQuery(
-    residentsQueryKey,
+    charactersQueryKey,
     async () => {
-      const data = await Promise.all(location.residents.map((url) => fetch(url).then((res) => res.json())));
+      const data = await Promise.all(episode.characters.map((url) => fetch(url).then((res) => res.json())));
       return data;
     },
-    { enabled: !!location }
+    { enabled: !!episode }
   );
 
   function handleNavigateToCharCard(characterId) {
@@ -41,23 +41,27 @@ export default function LocationCard() {
       <div
         style={{ backgroundImage: `url(${Background})` }}
         className="bg-cover bg-fixed bg-no-repeat h-[100%] min-h-[100vh] w-full flex justify-center items-center py-[80px] text-ivory-white font-barlow">
-        {loadingLocation ? (
+        {loadingEpisode ? (
           <p className="text-center">Loading location data.</p>
-        ) : locationNotFound ? (
-          <p className="text-center">Cannot find location details. Please try again later.</p>
+        ) : episodeNotFound ? (
+          <p className="text-center">Cannot find episode details. Please try again later.</p>
         ) : (
           <div className="max-w-[1000px] w-full h-auto rounded-xl grid grid-cols-2 grid-rows-auto justify-items-center items-center border-2 border-double p-[50px] bg-ivory-white bg-opacity-5 backdrop-blur-[20px] m-4">
-            <h1 className="font-bungee text-4xl text-center">{location.name}</h1>
-            <div className="tracking-widest text-lg">
-              <h2>Type: {location.type}</h2>
-              <h2>Dimension: {location.dimension}</h2>
-            </div>
+            <h1 className="col-span-2 font-bungee text-5xl text-center mb-[20px]">{episode.name}</h1>
+
+            <p>
+              Season: {parseInt(episode.episode.match(/^S(\d+)E\d+$/)?.[1], 10)}
+              {'\u2002'}Episode: {parseInt(episode.episode.match(/^S(\d+)E(\d+)$/)?.[2], 10)}
+            </p>
+            <p>Air Date: {episode.air_date}</p>
+
             <div className="col-span-2 w-full h-[4px] m-[40px] bg-gradient-to-r from-transparent via-white to-transparent" />
-            <h2 className="col-span-2 font-bungee text-2xl tracking-[30px]">Residents</h2>
-            {loadingResidents && <p className="p-4">Loading residents...</p>}{' '}
-            {!loadingResidents && residents?.length > 0 && (
+
+            <h1 className="col-span-2 font-bungee text-2xl text-center tracking-[12px]">Characters in this episode</h1>
+            {loadingCharacters && <p className="p-4">Loading characters...</p>}
+            {!loadingCharacters && characters?.length > 0 && (
               <div className="col-span-2 grid grid-cols-[repeat(auto-fill,minmax(160px,1fr))] gap-4 w-full mt-[30px]">
-                {residents.map((character) => (
+                {characters.map((character) => (
                   <div
                     key={character.id}
                     className="bg-ivory-white rounded-lg shadow-md overflow-hidden hover:cursor-pointer"
@@ -68,7 +72,7 @@ export default function LocationCard() {
                 ))}
               </div>
             )}
-            {residentsNotFound && <p className="col-span-2 text-center text-lg mt-[30px]">Residents data is not found.</p>}
+            {charactersNotFound && <p className="col-span-2 text-center text-lg mt-[30px]">Characters data is not found.</p>}
           </div>
         )}
       </div>

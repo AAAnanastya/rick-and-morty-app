@@ -1,7 +1,7 @@
 import { motion } from 'framer-motion';
 
-import HeroImg from '../assets/hero-image.png';
-import HeroLogo from '../assets/hero-logo.png';
+import HeroImg from '../../assets/hero-image.png';
+import HeroLogo from '../../assets/hero-logo.png';
 
 const Star = ({ x, y }) => {
   const opacityValues = [0.2, 1, 0.5];

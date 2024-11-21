@@ -1,10 +1,10 @@
 import { useState } from 'react';
 
-import SearchBar from '../components/SearchBar';
+import SearchBar from '../components/content_pages_components/content_filtering/SearchBar';
 import Background from '../assets/bg-cosmos.jpg';
-import FiltersBar from '../components/FiltersBar';
-import ItemsList from '../components/ItemsList';
-import AllDataPageGrid from '../components/AllDataPageGrid';
+import FiltersBar from '../components/content_pages_components/content_filtering/FiltersBar';
+import ItemsList from '../components/content_pages_components/ItemsList';
+import AllDataPageGrid from '../components/content_pages_components/AllDataPageGrid';
 
 export default function CharactersPage() {
   let url = `https://rickandmortyapi.com/api/character`;

@@ -1,5 +1,5 @@
 import { useInfiniteQuery } from 'react-query';
-import ListItem from '../components/ListItem';
+import ListItem from './ListItem';
 import InfiniteScroll from 'react-infinite-scroll-component';
 import { useEffect, useState } from 'react';
 

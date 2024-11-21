@@ -1,5 +1,5 @@
 import { useParams, useNavigate } from 'react-router-dom';
-import Background from '../assets/bg-cosmos-4.jpg';
+import Background from '../../../assets/bg-cosmos-4.jpg';
 import { useState } from 'react';
 import { motion } from 'framer-motion';
 import { useQuery } from 'react-query';
