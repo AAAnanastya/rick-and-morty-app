@@ -113,7 +113,7 @@ export default function LocationsPage() {
         }}
       />
 
-      <ItemsList contentType="planets" iurl={url} filters={filters} />
+      <ItemsList contentType="planets" url={url} filters={filters} />
     </AllDataPageGrid>
   );
 }

@@ -23,7 +23,7 @@ export default function ListItem({ item }) {
   return (
     <motion.div
       onClick={() => handleClick(item.id)}
-      className="w-[310px] h-[150px] bg-deep-blue rounded-[15px] overflow-hidden shadow-md shadow-custom-yellow flex items-center relative"
+      className="w-[310px] h-[150px] mb-[8px] bg-deep-blue rounded-[15px] overflow-hidden shadow-md shadow-custom-yellow flex items-center relative"
       whileHover="hover"
       initial={{ opacity: 0 }}
       animate={{ opacity: 1 }}

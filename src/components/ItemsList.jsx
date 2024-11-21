@@ -1,4 +1,4 @@
-import { useInfiniteQuery, useQuery } from 'react-query';
+import { useInfiniteQuery } from 'react-query';
 import ListItem from '../components/ListItem';
 import InfiniteScroll from 'react-infinite-scroll-component';
 import { useEffect, useState } from 'react';
@@ -17,6 +17,7 @@ export default function ItemsList({ contentType, url, filters }) {
   const { data, isLoading, isError, fetchNextPage, hasNextPage, refetch } = useInfiniteQuery(
     [contentType, urlParams],
     async ({ pageParam = 1 }) => {
+      console.log(`${url}/?page=${pageParam}${urlParams ? `&${urlParams}` : ''}`);
       const res = await fetch(`${url}/?page=${pageParam}${urlParams ? `&${urlParams}` : ''}`);
       const data = await res.json();
       return data;

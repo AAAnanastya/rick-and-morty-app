@@ -9,7 +9,7 @@ export default function FiltersBar({ filtersOptions, selectorOptions, filters, f
       Object.entries(currentFilters)
         .map(([key, value]) => {
           if (value !== '') {
-            return key + '=' + value;
+            return key + '=' + value.replace(/ /g, '%20');
           } else {
             return null;
           }
