@@ -1,5 +1,4 @@
-import { useState, useEffect } from 'react';
-import { useQuery } from 'react-query';
+import { useState } from 'react';
 
 import SearchBar from '../components/SearchBar';
 import Background from '../assets/episodes-background.jpg';
