@@ -14,11 +14,18 @@ export default function ItemsList({ contentType, url, filters }) {
     }
   }, [filters]);
 
-  const { data, isLoading, isError, fetchNextPage, hasNextPage, refetch } = useInfiniteQuery(
+  const { data, isLoading, isError, error, fetchNextPage, hasNextPage, refetch } = useInfiniteQuery(
     [contentType, urlParams],
     async ({ pageParam = 1 }) => {
-      console.log(`${url}/?page=${pageParam}${urlParams ? `&${urlParams}` : ''}`);
       const res = await fetch(`${url}/?page=${pageParam}${urlParams ? `&${urlParams}` : ''}`);
+
+      if (!res.ok) {
+        if (res.status === 404) {
+          throw new Error('Items not found. Please check the filters or try again later.');
+        }
+        throw new Error(`Error ${response.status}: ${response.statusText}`);
+      }
+
       const data = await res.json();
       return data;
     },
@@ -44,7 +51,7 @@ export default function ItemsList({ contentType, url, filters }) {
         <p className="text-ivory-white font-barlow text-lg tracking-widest">Loading {contentType}...</p>
       ) : isError ? (
         <p className="text-ivory-white text-bold font-barlow text-lg tracking-widest">
-          Cannot fetch {contentType} data. Please try again later.
+          {error.message || `Cannot fetch ${contentType} data. Please try again later.`}
         </p>
       ) : data.pages?.length ? (
         <InfiniteScroll
