@@ -1,7 +1,6 @@
 import { useState } from 'react';
 
 import SearchBar from '../components/content_pages_components/content_filtering/SearchBar';
-import Background from '../assets/bg-cosmos-3.jpg';
 import FiltersBar from '../components/content_pages_components/content_filtering/FiltersBar';
 import ItemsList from '../components/content_pages_components/ItemsList';
 import PageGrid from '../components/content_pages_components/PageGrid';
@@ -11,7 +10,7 @@ export default function LocationsPage() {
   const [filters, setFilters] = useState([]);
 
   return (
-    <PageGrid background={Background}>
+    <PageGrid className="bg-locations-page-bg">
       <SearchBar filters={filters} filtersChanger={setFilters} />
 
       <FiltersBar

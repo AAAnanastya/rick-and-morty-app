@@ -1,5 +1,4 @@
 import { useParams, useNavigate } from 'react-router-dom';
-import Background from '../../../assets/bg-cosmos-4.jpg';
 import { useState } from 'react';
 import { motion } from 'framer-motion';
 import { useQuery } from 'react-query';
@@ -46,9 +45,7 @@ export default function CharacterCard() {
 
   return (
     <div>
-      <div
-        style={{ backgroundImage: `url(${Background})` }}
-        className="bg-cover bg-fixed bg-no-repeat h-[100%] min-h-[100vh] w-full flex justify-center items-center py-[80px] text-ivory-white font-barlow">
+      <div className="bg-character-card-bg bg-cover bg-fixed bg-no-repeat h-[100%] min-h-[100vh] w-full flex justify-center items-center py-[80px] text-ivory-white font-barlow">
         {loadingCharacter ? (
           <p className="text-center">Loading character data.</p>
         ) : characterNotFound ? (

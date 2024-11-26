@@ -1,5 +1,4 @@
 import { useParams, useNavigate } from 'react-router-dom';
-import Background from '../../../assets/bg-cosmos-6.jpg';
 import { useQuery } from 'react-query';
 
 import InnerCharactersList from './InnerCharactersList.jsx';
@@ -40,9 +39,7 @@ export default function LocationCard() {
 
   return (
     <div>
-      <div
-        style={{ backgroundImage: `url(${Background})` }}
-        className="bg-cover bg-fixed bg-no-repeat h-[100%] min-h-[100vh] w-full flex justify-center items-center py-[80px] text-ivory-white font-barlow">
+      <div className="bg-location-card-bg bg-cover bg-fixed bg-no-repeat h-[100%] min-h-[100vh] w-full flex justify-center items-center py-[80px] text-ivory-white font-barlow">
         {loadingLocation ? (
           <p className="text-center">Loading location data.</p>
         ) : locationNotFound ? (

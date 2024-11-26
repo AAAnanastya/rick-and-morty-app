@@ -18,6 +18,14 @@ export default {
         'dark-grey': '#1a1a1a',
         'ivory-white': '#FFFFF0',
       },
+      backgroundImage: {
+        'characters-page-bg': "url('./src/assets/bg-cosmos.jpg')",
+        'episodes-page-bg': "url('./src/assets/episodes-background.jpg')",
+        'locations-page-bg': "url('./src/assets/bg-cosmos-3.jpg')",
+        'character-card-bg': "url('./src/assets//bg-cosmos-4.jpg')",
+        'location-card-bg': "url('./src/assets//bg-cosmos-6.jpg')",
+        'episode-card-bg': "url('./src/assets//bg-cosmos-5.jpg')",
+      },
       fontFamily: {
         barlow: ['"Barlow Condensed"', 'sans-serif'],
         bungee: ['Bungee', 'cursive'],
