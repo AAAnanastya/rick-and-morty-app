@@ -1,5 +1,5 @@
-import Hero from '../components/Hero';
-import HomeSectionRepresentation from '../components/HomeSectionRepresentation';
+import Hero from '../components/home_page_components/Hero.jsx';
+import HomeSectionRepresentation from '../components/home_page_components/HomeSectionRepresentation.jsx';
 import CharactersHeroImg from '../assets/rick-and-morty-wallpaper.jpg';
 import LocationsHeroImg from '../assets/rick-and-morty-planets.jpg';
 import EpisodesHeroImg from '../assets/rick-and-morty-episodes.avif';

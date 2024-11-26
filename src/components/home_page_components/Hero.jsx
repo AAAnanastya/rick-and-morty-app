@@ -1,7 +1,7 @@
 import { motion } from 'framer-motion';
 
-import HeroImg from '../assets/hero-image.png';
-import HeroLogo from '../assets/hero-logo.png';
+import HeroImg from '../../assets/hero-image.png';
+import HeroLogo from '../../assets/hero-logo.png';
 
 const Star = ({ x, y }) => {
   const opacityValues = [0.2, 1, 0.5];
@@ -37,9 +37,9 @@ export default function Hero() {
         <Star key={index} x={star.x} y={star.y} />
       ))}
 
-      <div className="relative w-auto rounded-full bg-[radial-gradient(circle,_theme('colors.yellow-green')_0%,_transparent_70%)]">
-        <img src={HeroLogo} alt="Rick and Morty" className="absolute top-0 left-0 z-1 w-auto" />
-        <img src={HeroImg} className="z-10 h-[600px]" alt="Hero" />
+      <div className="relative w-auto h-auto rounded-full bg-[radial-gradient(circle,_theme('colors.yellow-green')_0%,_transparent_70%)]">
+        <img src={HeroLogo} alt="Rick and Morty" className="absolute top-0 left-0 z-1 w-auto h-auto" />
+        <img src={HeroImg} className="z-10 max-h-[600px] max-h-[75vh]" alt="Hero" />
       </div>
 
       <div className="relative h-[40px] w-full">

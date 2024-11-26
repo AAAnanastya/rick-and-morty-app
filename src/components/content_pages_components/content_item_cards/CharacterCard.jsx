@@ -1,50 +1,44 @@
 import { useParams, useNavigate } from 'react-router-dom';
-import Background from '../assets/bg-cosmos-4.jpg';
+import Background from '../../../assets/bg-cosmos-4.jpg';
 import { useState } from 'react';
 import { motion } from 'framer-motion';
+import { useQuery } from 'react-query';
 
 export default function CharacterCard() {
   const { slug } = useParams();
+  const navigate = useNavigate();
 
   const [episodesVisibility, setEpisodesVisibility] = useState(false);
-  const [episodes, setEpisodes] = useState([]);
-  const [loadingEpisodes, setLoadingEpisodes] = useState(false);
 
-  const storedCharacters = JSON.parse(localStorage.getItem('characters')) || null;
-  let character = Object.values(storedCharacters).find((character) => character.id === Number(slug));
+  const characterQueryKey = `characterId${slug}`;
+  const episodesQueryKey = `character${slug}episodes`;
 
-  const storedEpisodes = JSON.parse(localStorage.getItem('episodes')) || null;
-  let epArr = character.episode.map((url) => {
-    const episodeId = url.split('/').pop();
-    return Number(episodeId);
+  const {
+    data: character,
+    isLoading: loadingCharacter,
+    isError: characterNotFound,
+  } = useQuery(characterQueryKey, async () => {
+    const res = await fetch(`https://rickandmortyapi.com/api/character/${slug}`);
+    const data = await res.json();
+    return data;
   });
+
+  const {
+    data: episodes,
+    isLoading: loadingEpisodes,
+    isError: episodesNotFound,
+  } = useQuery(
+    episodesQueryKey,
+    async () => {
+      const data = await Promise.all(character.episode.map((url) => fetch(url).then((res) => res.json())));
+      return data;
+    },
+    { enabled: episodesVisibility }
+  );
 
   function handleEpListVisibility() {
     setEpisodesVisibility(!episodesVisibility);
-
-    if (storedEpisodes) {
-      const filteredEpisodes = Object.values(storedEpisodes).filter((episode) => epArr.includes(episode.id));
-      setEpisodes(filteredEpisodes);
-    } else {
-      setLoadingEpisodes(true);
-      const fetchEpisodes = async () => {
-        try {
-          const episodeData = await Promise.all(
-            epArr.map((id) => fetch(`https://rickandmortyapi.com/api/episode/${id}`).then((res) => res.json()))
-          );
-          setEpisodes(episodeData);
-        } catch (error) {
-          console.error('Error fetching episodes:', error);
-        } finally {
-          setLoadingEpisodes(false);
-        }
-      };
-
-      fetchEpisodes();
-    }
   }
-
-  const navigate = useNavigate();
 
   function handleEpClick(episodeId) {
     navigate(`/episodes/${episodeId}`);
@@ -55,7 +49,9 @@ export default function CharacterCard() {
       <div
         style={{ backgroundImage: `url(${Background})` }}
         className="bg-cover bg-fixed bg-no-repeat h-[100%] min-h-[100vh] w-full flex justify-center items-center py-[80px] text-ivory-white font-barlow">
-        {!character ? (
+        {loadingCharacter ? (
+          <p className="text-center">Loading character data.</p>
+        ) : characterNotFound ? (
           <p className="text-center">Cannot find character details. Please try again later.</p>
         ) : (
           <div className="max-w-[1000px] w-full h-auto rounded-xl grid grid-cols-3 grid-rows-auto justify-items-center items-center gap-x-[20px] border-2 border-double p-[50px] bg-ivory-white bg-opacity-5 backdrop-blur-[20px] m-4">
@@ -111,7 +107,7 @@ export default function CharacterCard() {
               {!episodesVisibility ? 'View List of Episodes' : 'Hide List of Episodes'}
             </button>
 
-            {episodesVisibility && !loadingEpisodes && (
+            {episodesVisibility && !loadingEpisodes && !episodesNotFound && episodes?.length >= 1 && (
               <div className="col-span-3 mt-4 text-light-yellow max-w-[800px] w-full">
                 <div className="w-full border-collapse">
                   {episodes.map((episode) => {
@@ -135,6 +131,7 @@ export default function CharacterCard() {
               </div>
             )}
             {loadingEpisodes && <p className="p-4">Loading episodes...</p>}
+            {(episodesNotFound || episodes?.length < 1) && <p className="p-4">Cannot find episodes.</p>}
           </div>
         )}
       </div>
