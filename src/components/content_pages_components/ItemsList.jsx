@@ -23,7 +23,7 @@ export default function ItemsList({ contentType, url, filters }) {
         if (res.status === 404) {
           throw new Error('Items not found. Please check the filters or try again later.');
         }
-        throw new Error(`Error ${response.status}: ${response.statusText}`);
+        throw new Error(`Error ${res.status}: ${res.statusText}`);
       }
 
       const data = await res.json();
