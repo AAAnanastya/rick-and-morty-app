@@ -2,7 +2,7 @@
 
 SPA приложение для поиска информации по вселенной "Rick and Morty". Приложение включает в себя таблицы с возможностью поиска по персонажам, локациям и эпизодам сериала с фильтрацией. При нажатии на карточку персонажа/локации/эпизода можно посмотреть подробную информацию.
 
-Приложение реализовано на React + Javascript, использует [Rick and Morty API](https://rickandmortyapi.com/documentation). Используется HTML5 + Tailwind CSS.
+Приложение реализовано на React + Javascript, использует [Rick and Morty API](https://rickandmortyapi.com/documentation). Используется HTML5 + Tailwind CSS + Framer Motion.
 
 ## Скриншоты
 
