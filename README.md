@@ -7,18 +7,18 @@ SPA приложение для поиска информации по всел�
 ## Скриншоты
 
 ##### Главная (Hero)
-![main](https://github.com/AAAnanastya/rick-and-morty-app/blob/main/Preview/Main.png)
+![main](https://github.com/AAAnanastya/rick-and-morty-app/blob/main/Preview/Main.jpeg)
 ##### Таблица персонажей
-![characters](https://github.com/AAAnanastya/rick-and-morty-app/blob/main/Preview/Chars_tab.png)
+![characters](https://github.com/AAAnanastya/rick-and-morty-app/blob/main/Preview/Chars_tab.jpeg)
 ##### Карточка персонажа
-![character](https://github.com/AAAnanastya/rick-and-morty-app/blob/main/Preview/Char_card.png)
+![character](https://github.com/AAAnanastya/rick-and-morty-app/blob/main/Preview/Char_card.jpeg)
 ##### Таблица локаций
-![locations](https://github.com/AAAnanastya/rick-and-morty-app/blob/main/Preview/Loc_tab.png)
+![locations](https://github.com/AAAnanastya/rick-and-morty-app/blob/main/Preview/Loc_tab.jpeg)
 ##### Карточка локации
-![location](https://github.com/AAAnanastya/rick-and-morty-app/blob/main/Preview/Loc_card.png)
+![location](https://github.com/AAAnanastya/rick-and-morty-app/blob/main/Preview/Loc_card.jpeg)
 ##### Таблица эпизодов
-![episodes](https://github.com/AAAnanastya/rick-and-morty-app/blob/main/Preview/Ep_tab.png)
+![episodes](https://github.com/AAAnanastya/rick-and-morty-app/blob/main/Preview/Ep_tab.jpeg)
 ##### Карточка эпизода
-![episode](https://github.com/AAAnanastya/rick-and-morty-app/blob/main/Preview/Ep_card.png)
+![episode](https://github.com/AAAnanastya/rick-and-morty-app/blob/main/Preview/Ep_card.jpeg)
 
 
